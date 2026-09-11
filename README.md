@@ -1,4 +1,4 @@
-# MapPhoto — production-ready
+# 67 — production-ready
 
 A public photo-sharing social app built with React, Express, PostgreSQL and Supabase Storage.
 
