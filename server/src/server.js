@@ -58,12 +58,12 @@ import {
 
                                       function setAuthCookie(res, token) {
                                         res.cookie("mapphoto_token", token, {
-                                            httpOnly: true,
-                                                secure: process.env.NODE_ENV === "production",
-                                                    sameSite: "lax",
-                                                        maxAge: 1000 * 60 * 60 * 24 * 30,
-                                                            path: "/",
-                                                              });
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  maxAge: 1000 * 60 * 60 * 24 * 30,
+  path: "/",
+});
                                                               }
 
                                                               function requireAuth(req, res, next) {
@@ -116,7 +116,7 @@ import {
                                                                                                                                                                                 });
 
                                                                                                                                                                                 app.post("/api/auth/logout", (req, res) => {
-                                                                                                                                                                                  res.clearCookie("mapphoto_token", { httpOnly: true, sameSite: "lax", path: "/" });
+                                                                                                                                                                                  res.clearCookie("mapphoto_token", { httpOnly: true, secure: true, sameSite: "none", path: "/" });
                                                                                                                                                                                     res.json({ ok: true });
                                                                                                                                                                                     });
 
