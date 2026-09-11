@@ -16,6 +16,7 @@ import {
 import { uploadImage } from "./storage.js";
 
 const app = express();
+app.set("trust proxy", 1);
 const PORT = Number(process.env.PORT || 3001);
 
 if (!process.env.CLIENT_ORIGIN) throw new Error("CLIENT_ORIGIN is required.");
