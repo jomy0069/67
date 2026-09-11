@@ -109,3 +109,43 @@ input:focus { border-color: #555; }
   .content { width: min(100% - 20px, 680px); margin: 20px auto; }
   .picker-map { height: 400px; }
 }
+
+/* 67 social/profile UI */
+.logo { letter-spacing: -1px; }
+.profile-link, .post-user, .user-name { border: 0; background: transparent; padding: 0; font-weight: 700; cursor: pointer; }
+.profile-link:hover, .post-user:hover, .user-name:hover { text-decoration: underline; }
+.post-actions { display: flex; align-items: center; gap: 8px; padding: 0 16px 16px; }
+.like-button, .delete-button, .secondary, .back-button { border: 1px solid #ccc; background: white; border-radius: 8px; padding: 8px 12px; }
+.like-button { border: 0; font-size: 17px; padding-left: 0; }
+.like-button.liked { font-weight: 800; }
+.delete-button { margin-left: auto; }
+.delete-button:hover { background: #fff0f0; color: #9d2020; border-color: #ffcaca; }
+.location-button { margin: 0; }
+.small { padding: 9px 15px; }
+.secondary:hover, .back-button:hover { background: #eee; }
+.profile-page { max-width: 900px; }
+.back-button { margin-bottom: 18px; }
+.profile-card { display: flex; gap: 30px; align-items: center; background: white; border: 1px solid #ddd; border-radius: 16px; padding: 28px; margin-bottom: 24px; }
+.avatar { width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; background: #eee; font-size: 36px; font-weight: 800; flex: 0 0 auto; }
+.profile-main { flex: 1; }
+.profile-title { display: flex; align-items: center; gap: 16px; }
+.profile-title h2 { margin: 0; }
+.stats { display: flex; gap: 32px; margin-top: 20px; }
+.stats button { border: 0; background: transparent; display: grid; gap: 3px; text-align: left; cursor: pointer; padding: 0; }
+.stats strong { font-size: 18px; }
+.stats span { color: #666; }
+.profile-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.profile-post { aspect-ratio: 1; position: relative; overflow: hidden; background: #eee; }
+.profile-post img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.grid-like { position: absolute; left: 8px; bottom: 8px; background: rgba(255,255,255,.9); border-radius: 7px; padding: 4px 7px; font-size: 13px; }
+.delete-overlay { position: absolute; top: 8px; right: 8px; border: 0; border-radius: 7px; padding: 6px 8px; background: rgba(255,255,255,.94); color: #9d2020; cursor: pointer; }
+.list-panel { background: white; border: 1px solid #ddd; border-radius: 14px; padding: 18px; }
+.list-panel h3 { margin-top: 0; }
+
+@media (max-width: 600px) {
+  .profile-card { padding: 20px; gap: 18px; }
+  .avatar { width: 72px; height: 72px; font-size: 28px; }
+  .stats { gap: 16px; }
+  .profile-grid { gap: 2px; }
+  .post-actions { flex-wrap: wrap; }
+}
