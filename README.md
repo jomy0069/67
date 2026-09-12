@@ -11,39 +11,8 @@ A public photo-sharing social app built with React, Express, PostgreSQL and Supa
 - JWT authentication stored in an HttpOnly cookie
 - Helmet, CORS, rate limiting and strict image validation
 
-## 1. Create Supabase resources
 
-Create a Supabase project. In Storage, create a bucket named `photos` and make it public.
-
-Run the SQL in `server/sql/schema.sql` in the Supabase SQL editor.
-
-Get:
-- Project URL
-- Service role key
-- Database connection string
-
-Never expose the service role key in the React app or commit `.env`.
-
-## 2. Server environment
-
-Copy:
-```bash
-cp server/.env.example server/.env
-```
-
-Set:
-```env
-PORT=3001
-NODE_ENV=production
-CLIENT_ORIGIN=https://your-domain.example
-DATABASE_URL=postgresql://...
-JWT_SECRET=use-a-long-random-secret
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_SERVICE_ROLE_KEY=...
-SUPABASE_STORAGE_BUCKET=photos
-```
-
-## 3. Local development
+## Local development
 
 Server:
 ```bash
