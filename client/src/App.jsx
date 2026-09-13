@@ -71,7 +71,7 @@ function Profile({ username, currentUser, onProfile, onBack }) {
 
 export default function App() {
  const [user, setUser] = useState(null), [loading, setLoading] = useState(true), [page, setPage] = useState("feed"), [focus, setFocus] = useState(null), [profile, setProfile] = useState(null);
- useEffect(() => { api.me().then(setUser).catch(() => setUser(null)).finally(() => setLoading(false)); }, []);
+ useEffect(() => { api.me().then(setUser).catch(() => { localStorage.removeItem("67_token"); setUser(null); }).finally(() => setLoading(false)); }, []);
  async function logout() { await api.logout(); setUser(null); }
  function showMap(lat, lng) { setFocus({ lat, lng }); setPage("map"); setProfile(null); }
  function showProfile(username) { setProfile(username); }
