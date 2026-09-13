@@ -41,11 +41,16 @@ function clearAuthCookie(res) {
 }
 function requireAuth(req, res, next) {
   try {
-    const token = req.cookies.mapphoto_token;
+    // Prefer the Authorization header so mobile browsers do not need to allow
+    // third-party cookies between Vercel and Render. Keep the cookie as a fallback.
+    const auth = req.get("authorization") || "";
+    const bearer = auth.startsWith("Bearer ") ? auth.slice(7).trim() : "";
+    const token = bearer || req.cookies.mapphoto_token;
     if (!token) return res.status(401).json({ error: "You must be logged in." });
     req.userId = Number(verifyToken(token).sub);
     next();
-  } catch { res.status(401).json({ error: "You must be logged in." }); }
+  } catch { res.status(401).json({ error: "You must be logged in." });
+  }
 }
 const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024 } });
 const publicImageBase = `${process.env.SUPABASE_URL}/storage/v1/object/public/${process.env.SUPABASE_STORAGE_BUCKET || "photos"}`;
@@ -65,8 +70,9 @@ app.get("/api/health", (req, res) => res.json({ ok: true }));
 app.post("/api/auth/register", authLimiter, async (req, res) => {
   try {
     const user = await createUser(String(req.body.username || ""), String(req.body.password || ""));
-    setAuthCookie(res, signToken(user));
-    res.status(201).json(user);
+    const token = signToken(user);
+    setAuthCookie(res, token);
+    res.status(201).json({ ...user, token });
   } catch (err) { res.status(400).json({ error: err.message }); }
 });
 app.post("/api/auth/login", authLimiter, async (req, res) => {
@@ -74,7 +80,7 @@ app.post("/api/auth/login", authLimiter, async (req, res) => {
     const user = await verifyUser(String(req.body.username || ""), String(req.body.password || ""));
     if (!user) return res.status(401).json({ error: "Invalid username or password." });
     setAuthCookie(res, signToken(user));
-    res.json(user);
+    res.json({ ...user, token: signToken(user) });
   } catch { res.status(500).json({ error: "Login failed." }); }
 });
 app.post("/api/auth/logout", (req, res) => { clearAuthCookie(res); res.json({ ok: true }); });
